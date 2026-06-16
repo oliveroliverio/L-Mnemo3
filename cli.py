@@ -68,13 +68,12 @@ def _resolve_session(args_session: int | None) -> int:
 
 def cmd_start_session(args: argparse.Namespace) -> None:
     db.init_db()
-    session_id = db.create_session(
-        title=args.title,
-        topic=args.topic or "",
-        category=args.category or "",
-    )
+    title = args.title or config.SESSION_TITLE
+    topic = args.topic if args.topic is not None else config.SESSION_TOPIC
+    category = args.category if args.category is not None else config.SESSION_CATEGORY
+    session_id = db.create_session(title=title, topic=topic, category=category)
     _save_active_session(session_id)
-    print(f"Session started: id={session_id}  title={args.title!r}")
+    print(f"Session started: id={session_id}  title={title!r}")
     print(f"Active session saved to {config.ACTIVE_SESSION_FILE}")
     print(f"\nNext: take screenshots, then run:")
     print(f"  python cli.py add-screenshot path/to/shot.png")
@@ -84,7 +83,11 @@ def cmd_start_session(args: argparse.Namespace) -> None:
 def cmd_add_screenshot(args: argparse.Namespace) -> None:
     db.init_db()
     session_id = _resolve_session(args.session)
-    for filepath in args.paths:
+    paths = args.paths or config.SCREENSHOT_PATHS
+    if not paths:
+        print("ERROR: No screenshot paths provided. Add paths via CLI or set SCREENSHOT_PATHS in config.py.")
+        sys.exit(1)
+    for filepath in paths:
         screenshot_id = add_screenshot(session_id, filepath, copy_to_dir=True)
         print(f"Screenshot added: id={screenshot_id}  path={filepath}")
 
@@ -190,13 +193,13 @@ def main() -> None:
 
     # start-session
     p_start = sub.add_parser("start-session", help="Start a new study session")
-    p_start.add_argument("--title", required=True, help="Session title (e.g. 'CIS101 Chapter 1')")
-    p_start.add_argument("--topic", default="", help="Topic or subject area")
-    p_start.add_argument("--category", default="", help="Category (e.g. 'CIS', 'Math')")
+    p_start.add_argument("--title", default=None, help="Session title (default: SESSION_TITLE in config.py)")
+    p_start.add_argument("--topic", default=None, help="Topic or subject area (default: SESSION_TOPIC in config.py)")
+    p_start.add_argument("--category", default=None, help="Category (default: SESSION_CATEGORY in config.py)")
 
     # add-screenshot
     p_add = sub.add_parser("add-screenshot", help="Add screenshot(s) to the active session")
-    p_add.add_argument("paths", nargs="+", help="Path(s) to screenshot file(s)")
+    p_add.add_argument("paths", nargs="*", help="Path(s) to screenshot file(s) (default: SCREENSHOT_PATHS in config.py)")
     p_add.add_argument("--session", type=int, default=None, help="Session id (default: active)")
 
     # end-session
