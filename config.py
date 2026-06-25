@@ -20,6 +20,5 @@ SESSION_CATEGORY = ""
 # Screenshot paths for the current session.
 # Add paths here instead of passing them via `add-screenshot` on the command line.
 SCREENSHOT_PATHS: list[str] = [
-    # "/path/to/screenshot1.png",
-    # "/path/to/screenshot2.png",
+    "mnemo/screenshots"
 ]
