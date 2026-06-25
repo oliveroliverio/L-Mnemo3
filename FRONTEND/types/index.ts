@@ -1,9 +1,25 @@
 export interface MemoryPegMetadata {
-  dayTheme: string;
-  weekCharacter: string;
-  timeCharacter: string;
-  quadrant: string;
-  datetime: string;
+  weekCreature: {
+    week: number;
+    weekFormatted: string;
+    creature: string;
+    creature_description: string;
+    note: string;
+  };
+  dayTheme: {
+    weekday: string;
+    theme: string;
+    props: string[];
+    note: string;
+  };
+  timeCharacter: {
+    peg: string;
+    character: string;
+    time: string;
+    note: string;
+  };
+  computedTime: string;
+  currentDate: string;
 }
 
 export interface ImageAttachment {

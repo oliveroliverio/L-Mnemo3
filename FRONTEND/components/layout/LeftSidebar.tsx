@@ -46,19 +46,19 @@ export default function LeftSidebar() {
           <CardContent className="p-4 pt-0 space-y-3">
             <div>
               <span className="text-xs text-muted-foreground uppercase tracking-wider">Day Theme</span>
-              <p className="font-medium text-sm">{memoryPeg?.dayTheme || '...'}</p>
+              <p className="font-medium text-sm">{memoryPeg?.dayTheme?.theme || '...'}</p>
             </div>
             <div>
               <span className="text-xs text-muted-foreground uppercase tracking-wider">Week Creature</span>
-              <p className="font-medium text-sm">{memoryPeg?.weekCharacter || '...'}</p>
+              <p className="font-medium text-sm">{memoryPeg?.weekCreature?.creature || '...'}</p>
             </div>
             <div>
               <span className="text-xs text-muted-foreground uppercase tracking-wider">Time Character</span>
-              <p className="font-medium text-sm">{memoryPeg?.timeCharacter || '...'}</p>
+              <p className="font-medium text-sm">{memoryPeg?.timeCharacter?.character || '...'}</p>
             </div>
             <div>
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Quadrant</span>
-              <p className="font-medium text-sm">{memoryPeg?.quadrant || '...'}</p>
+              <span className="text-xs text-muted-foreground uppercase tracking-wider">Quadrant Peg</span>
+              <p className="font-medium text-sm">{memoryPeg?.timeCharacter?.peg || '...'}</p>
             </div>
           </CardContent>
         </Card>

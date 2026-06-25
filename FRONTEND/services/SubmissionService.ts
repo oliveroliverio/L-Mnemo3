@@ -1,6 +1,6 @@
 import { ArtifactPayload } from '../types';
 
-const API_URL = process.env.NEXT_PUBLIC_SQLITE_API || 'http://localhost:3002';
+const API_URL = '/api/sqlite';
 
 export class SubmissionService {
   static async submitArtifact(payload: ArtifactPayload): Promise<void> {

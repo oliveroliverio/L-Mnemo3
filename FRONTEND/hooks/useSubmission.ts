@@ -22,10 +22,10 @@ export function useSubmission() {
         markdown: draft,
         images: images.map(img => img.base64).filter(Boolean) as string[],
         datetime: format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"),
-        quadrant: memoryPeg?.quadrant || 'UNKNOWN',
-        weekCharacter: memoryPeg?.weekCharacter || 'UNKNOWN',
-        timeCharacter: memoryPeg?.timeCharacter || 'UNKNOWN',
-        dayTheme: memoryPeg?.dayTheme || 'UNKNOWN',
+        quadrant: memoryPeg?.timeCharacter?.peg || 'UNKNOWN',
+        weekCharacter: memoryPeg?.weekCreature?.creature || 'UNKNOWN',
+        timeCharacter: memoryPeg?.timeCharacter?.character || 'UNKNOWN',
+        dayTheme: memoryPeg?.dayTheme?.theme || 'UNKNOWN',
         manual: isManual,
       };
 

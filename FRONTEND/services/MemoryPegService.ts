@@ -1,6 +1,6 @@
 import { MemoryPegMetadata } from '../types';
 
-const API_URL = process.env.NEXT_PUBLIC_MEMORY_PEG_API || 'http://localhost:3001';
+const API_URL = '/api/memory-peg';
 
 export class MemoryPegService {
   static async getCharacters(): Promise<MemoryPegMetadata> {
